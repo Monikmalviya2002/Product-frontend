@@ -17,7 +17,7 @@ const LoginPage = () => {
     setError("");
 
     if (!value.trim()) {
-      setError("Please enter email or phone number");
+      setError("Please enter emailId");
       return;
     }
 
@@ -63,13 +63,13 @@ const LoginPage = () => {
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label className="block text-bold text-black-400 mb-1">
-                Email or Phone number
+                Email Id
               </label>
               <input
                 type="text"
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
-                placeholder="Enter email or phone number"
+                placeholder="Enter emailId"
                 className="w-full px-3 py-2 border rounded-md text-sm
                            focus:outline-none focus:ring-1 focus:ring-blue-600"
               />

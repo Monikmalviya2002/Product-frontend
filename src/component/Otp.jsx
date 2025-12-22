@@ -5,10 +5,10 @@ import Bgphoto from "../assets/image.png";
 
 const BASE_URL = "http://localhost:7777";
 
-const LoginPage = () => {
+const VerifyOtp = () => {
   const navigate = useNavigate();
 
-  const [value, setValue] = useState("");
+  const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -16,25 +16,23 @@ const LoginPage = () => {
     e.preventDefault();
     setError("");
 
-    if (!value.trim()) {
-      setError("Please enter email or phone number");
+    if (!otp.trim()) {
+      setError("Please enter OTP");
       return;
     }
 
     setLoading(true);
 
     try {
-      const payload = value.includes("@")
-        ? { emailId: value }
-        : { phone: value };
+      await axios.post(
+        `${BASE_URL}/api/verify-otp`,
+        { otp },
+        { withCredentials: true }
+      );
 
-      await axios.post(`${BASE_URL}/api/send-otp`, payload, {
-        withCredentials: true,
-      });
-
-      navigate("/otp");
+      navigate("/dashboard");
     } catch (err) {
-      setError(err.response?.data?.error || "Failed to send OTP");
+      setError(err.response?.data?.error || "Invalid OTP");
     } finally {
       setLoading(false);
     }
@@ -48,28 +46,30 @@ const LoginPage = () => {
         <div className="w-[480px] h-[520px] rounded-xl overflow-hidden shadow-md">
           <img
             src={Bgphoto}
-            alt="Login"
+            alt="Verify OTP"
             className="w-full h-full object-cover"
           />
         </div>
       </div>
 
       {/* Form Section */}
-      <div className="w-full lg:w-1/2 flex flex-col items-center justify-center px-8 lg:px-24">
+      <div className="w-full lg:w-1/2 flex items-center justify-center px-8 lg:px-24">
         <div className="w-full max-w-md">
-          <h1 className="text-3xl font-bold text-[#0F172A] mb-8 text-center lg:text-left">
-            Login to your Productr Account
+
+          <h1 className="text-3xl font-bold text-[#0F172A] mb-6">
+            Verify OTP
           </h1>
+
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-bold text-black-400 mb-1">
-                Enter the otp
+              <label className="block text-sm text-gray-700 mb-1">
+                Enter OTP
               </label>
               <input
                 type="text"
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-                placeholder="Enter email or phone number"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+                placeholder="6 digit OTP"
                 className="w-full px-3 py-2 border rounded-md text-sm
                            focus:outline-none focus:ring-1 focus:ring-blue-600"
               />
@@ -83,22 +83,23 @@ const LoginPage = () => {
               type="submit"
               disabled={loading}
               className="w-full py-2 bg-blue-950 text-white rounded-md
-                         text-sm font-medium cursor-pointer disabled:opacity-60"
+                         text-sm font-medium disabled:opacity-60"
             >
-              {loading ? "verifying OTP..." : "Enter your OTP"}
+              {loading ? "Verifying..." : "Verify OTP"}
             </button>
           </form>
 
           <p className="text-sm text-gray-500 mt-6 text-center">
-            Didn't recive OTP?{" "}
-            <a href="/signup" className="text-blue-600 hover:underline">
-              Resend in 20s
-            </a>
+            Didn’t receive OTP?{" "}
+            <button className="text-blue-600 hover:underline">
+              Resend OTP
+            </button>
           </p>
+
         </div>
       </div>
     </div>
   );
 };
 
-export default LoginPage;
+export default VerifyOtp;
