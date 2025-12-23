@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Bgphoto from "../assets/image.png";
 
-const BASE_URL = "https://product-backend-2-uwao.onrender.com";
+const BASE_URL = "https://product-backend-3-v9d4.onrender.com";
 
 const VerifyOtp = () => {
   const navigate = useNavigate();

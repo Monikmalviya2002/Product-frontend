@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Bgphoto from "../assets/image.png";
 
-const BASE_URL = "https://product-backend-2-uwao.onrender.com";
+const BASE_URL = "https://product-backend-3-v9d4.onrender.com";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -69,7 +69,7 @@ const LoginPage = () => {
                 type="text"
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
-                placeholder="Enter emailId"
+                placeholder="Enter your EmailId"
                 className="w-full px-3 py-2 border rounded-md text-sm
                            focus:outline-none focus:ring-1 focus:ring-blue-600"
               />
