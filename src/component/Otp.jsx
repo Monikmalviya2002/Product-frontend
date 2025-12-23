@@ -11,6 +11,8 @@ const VerifyOtp = () => {
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [resendLoading, setResendLoading] = useState(false);
+  const [resendMessage, setResendMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,10 +40,22 @@ const VerifyOtp = () => {
     }
   };
 
+  const handleResendOtp = async () => {
+    setResendMessage("");
+    setResendLoading(true);
+
+    try {
+      await axios.post(`${BASE_URL}/api/resend-otp`, {}, { withCredentials: true });
+      setResendMessage("OTP has been resent successfully!");
+    } catch (err) {
+      setResendMessage(err.response?.data?.error || "Failed to resend OTP");
+    } finally {
+      setResendLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen flex bg-gray-50">
-      
-     
       <div className="hidden lg:flex w-1/2 items-center justify-center">
         <div className="w-[480px] h-[520px] rounded-xl overflow-hidden shadow-md">
           <img
@@ -52,7 +66,6 @@ const VerifyOtp = () => {
         </div>
       </div>
 
-      
       <div className="w-full lg:w-1/2 flex items-center justify-center px-8 lg:px-24">
         <div className="w-full max-w-md">
 
@@ -75,9 +88,7 @@ const VerifyOtp = () => {
               />
             </div>
 
-            {error && (
-              <p className="text-sm text-red-500">{error}</p>
-            )}
+            {error && <p className="text-sm text-red-500">{error}</p>}
 
             <button
               type="submit"
@@ -91,10 +102,20 @@ const VerifyOtp = () => {
 
           <p className="text-sm text-gray-500 mt-6 text-center">
             Didn’t receive OTP?{" "}
-            <button className="text-blue-600 hover:underline">
-              Resend OTP
+            <button
+              onClick={handleResendOtp}
+              disabled={resendLoading}
+              className="text-blue-600 hover:underline"
+            >
+              {resendLoading ? "Resending..." : "Resend OTP"}
             </button>
           </p>
+
+          {resendMessage && (
+            <p className="text-sm text-green-500 mt-2 text-center">
+              {resendMessage}
+            </p>
+          )}
 
         </div>
       </div>
@@ -103,4 +124,3 @@ const VerifyOtp = () => {
 };
 
 export default VerifyOtp;
- 
