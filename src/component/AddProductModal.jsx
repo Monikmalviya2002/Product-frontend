@@ -3,7 +3,7 @@ import axios from "axios";
 
 export default function AddProductModal({ isOpen, onClose, editData }) {
   const isEdit = Boolean(editData);
-  const API_URL = "https://product-backend-2-uwao.onrender.com/";
+  const API_URL = "https://product-backend-2-uwao.onrender.com";
 
   const [form, setForm] = useState({
     productName: "",

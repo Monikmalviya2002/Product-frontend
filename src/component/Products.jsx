@@ -8,7 +8,7 @@ export default function Products() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editProduct, setEditProduct] = useState(null);
 
-  const API_URL = "https://product-backend-2-uwao.onrender.com/";
+  const API_URL = "https://product-backend-2-uwao.onrender.com";
 
   const fetchProducts = async () => {
     try {
