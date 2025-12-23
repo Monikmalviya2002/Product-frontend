@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Bgphoto from "../assets/image.png";
 
-const BASE_URL = "http://localhost:7777";
+const BASE_URL = "https://product-backend-2-uwao.onrender.com/";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -21,21 +21,21 @@ const LoginPage = () => {
       return;
     }
 
-    setLoading(true);
+      setLoading(true);
 
-    try {
+       try {
       const payload = value.includes("@")
-        ? { emailId: value }
-        : { phone: value };
+            ? { emailId: value }
+           : { phone: value };
 
       await axios.post(`${BASE_URL}/api/send-otp`, payload, {
-        withCredentials: true,
-      });
+          withCredentials: true,
+          });
 
-      navigate("/otp");
-    } catch (err) {
-      setError(err.response?.data?.error || "Failed to send OTP");
-    } finally {
+         navigate("/otp");
+         } catch (err) {
+        setError(err.response?.data?.error || "Failed to send OTP");
+      } finally {
       setLoading(false);
     }
   };
@@ -43,7 +43,7 @@ const LoginPage = () => {
   return (
     <div className="min-h-screen flex bg-gray-50">
       
-      {/* Image Section */}
+     
       <div className="hidden lg:flex w-1/2 items-center justify-center">
         <div className="w-[480px] h-[520px] rounded-xl overflow-hidden shadow-md">
           <img
@@ -54,7 +54,7 @@ const LoginPage = () => {
         </div>
       </div>
 
-      {/* Form Section */}
+     
       <div className="w-full lg:w-1/2 flex flex-col items-center justify-center px-8 lg:px-24">
         <div className="w-full max-w-md">
           <h1 className="text-3xl font-bold text-[#0F172A] mb-8 text-center lg:text-left">

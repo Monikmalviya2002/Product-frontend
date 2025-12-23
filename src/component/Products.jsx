@@ -8,7 +8,7 @@ export default function Products() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editProduct, setEditProduct] = useState(null);
 
-  const API_URL = "http://localhost:7777";
+  const API_URL = "https://product-backend-2-uwao.onrender.com/";
 
   const fetchProducts = async () => {
     try {
@@ -29,16 +29,9 @@ export default function Products() {
     }
   };
 
-  const toggleStatus = async (product) => {
-    try {
-      await axios.post(`${API_URL}/api/update/${product._id}`, { ...product, status: product.status === "PUBLISHED" ? "UNPUBLISHED" : "PUBLISHED" }, { withCredentials: true });
-      fetchProducts();
-    } catch (err) {
-      console.error("Error toggling status:", err);
-    }
-  };
-
-  useEffect(() => { fetchProducts(); }, []);
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
@@ -46,7 +39,10 @@ export default function Products() {
         <h1 className="text-xl font-bold text-gray-800">Products</h1>
         <button
           className="text-black-500 font-semibold flex items-center gap-1 hover:text-black-600 transition-all"
-          onClick={() => { setEditProduct(null); setIsModalOpen(true); }}
+          onClick={() => {
+            setEditProduct(null);
+            setIsModalOpen(true);
+          }}
         >
           <span className="text-xl">+</span> Add Products
         </button>
@@ -55,9 +51,12 @@ export default function Products() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
         {products.map((p) => (
           <div key={p._id} className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm flex flex-col">
+        
             <div className="h-30 flex items-center justify-center bg-white p-2">
               <img 
-                src={p.images && p.images.length > 0 ? `${API_URL}/${p.images[0].replace(/\\/g, '/')}` : "https://via.placeholder.com/150"} 
+                src={p.images && p.images.length > 0 
+                  ? `${API_URL}/${p.images[0].replace(/\\/g, '/')}` 
+                  : "https://via.placeholder.com/150"} 
                 alt={p.productName} 
                 className="max-h-full max-w-full object-contain"
                 onError={(e) => { e.target.src = "https://via.placeholder.com/150"; }}
@@ -73,15 +72,15 @@ export default function Products() {
                 <div className="flex justify-between font-semibold"><span>MRP -</span> <span className="text-gray-900">₹ {p.mrp}</span></div>
                 <div className="flex justify-between font-semibold"><span>Selling Price -</span> <span className="text-gray-900">₹ {p.sellingPrice}</span></div>
                 <div className="flex justify-between"><span>Brand Name -</span> <span className="text-gray-900 font-medium">{p.brandName}</span></div>
-                <div className="flex justify-between uppercase"><span>Exchange -</span> <span className="text-gray-900 font-bold">{p.exchangeEligible ? "YES" : "NO"}</span></div>
+                <div className="flex justify-between"><span>Total Number of Images -</span> <span className="text-gray-900 font-medium">{p.images?.length || 0}</span></div>
+                <div className="flex justify-between uppercase"><span>Exchange Eligibility -</span> <span className="text-gray-900 font-bold">{p.exchangeEligible ? "YES" : "NO"}</span></div>
               </div>
 
+             
               <div className="mt-5 flex gap-2">
-                <button 
-                  onClick={() => toggleStatus(p)}
-                  className={`flex-1 py-2 rounded text-white text-xs font-bold uppercase transition-colors ${p.status === 'PUBLISHED' ? 'bg-green-600 hover:bg-green-700' : 'bg-blue-600 hover:bg-blue-700'}`}
-                >
-                  {p.status === 'PUBLISHED' ? 'Unpublish' : 'Publish'}
+                <button className={`flex-1 py-2 rounded text-white text-xs font-bold uppercase transition-colors 
+                  ${p.status === 'PUBLISHED' ? 'bg-blue-700 hover:bg-blue-800' : 'bg-green-500 hover:bg-green-600'}`}>
+                  {p.status === 'PUBLISHED' ? 'Publish' : 'Unpublish'}
                 </button>
                 <button 
                   onClick={() => { setEditProduct(p); setIsModalOpen(true); }}
@@ -104,7 +103,10 @@ export default function Products() {
       {isModalOpen && (
         <AddProductModal
           isOpen={isModalOpen}
-          onClose={(refresh) => { setIsModalOpen(false); if (refresh) fetchProducts(); }}
+          onClose={(refresh) => {
+            setIsModalOpen(false);
+            if (refresh) fetchProducts();
+          }}
           editData={editProduct}
         />
       )}

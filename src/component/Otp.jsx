@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Bgphoto from "../assets/image.png";
 
-const BASE_URL = "http://localhost:7777";
+const BASE_URL = "https://product-backend-2-uwao.onrender.com/";
 
 const VerifyOtp = () => {
   const navigate = useNavigate();
@@ -41,7 +41,7 @@ const VerifyOtp = () => {
   return (
     <div className="min-h-screen flex bg-gray-50">
       
-      {/* Image Section */}
+     
       <div className="hidden lg:flex w-1/2 items-center justify-center">
         <div className="w-[480px] h-[520px] rounded-xl overflow-hidden shadow-md">
           <img
@@ -52,7 +52,7 @@ const VerifyOtp = () => {
         </div>
       </div>
 
-      {/* Form Section */}
+      
       <div className="w-full lg:w-1/2 flex items-center justify-center px-8 lg:px-24">
         <div className="w-full max-w-md">
 
@@ -103,3 +103,4 @@ const VerifyOtp = () => {
 };
 
 export default VerifyOtp;
+ 

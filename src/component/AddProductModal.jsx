@@ -3,7 +3,7 @@ import axios from "axios";
 
 export default function AddProductModal({ isOpen, onClose, editData }) {
   const isEdit = Boolean(editData);
-  const API_URL = "http://localhost:7777";
+  const API_URL = "https://product-backend-2-uwao.onrender.com/";
 
   const [form, setForm] = useState({
     productName: "",
@@ -12,11 +12,12 @@ export default function AddProductModal({ isOpen, onClose, editData }) {
     mrp: "",
     sellingPrice: "",
     brandName: "",
-    status: "UNPUBLISHED",
+    status: "UNPUBLISHED", 
     exchangeEligible: "Yes",
     images: [],
   });
 
+  const [errors, setErrors] = useState({});
   const [existingImages, setExistingImages] = useState([]);
 
   useEffect(() => {
@@ -49,14 +50,17 @@ export default function AddProductModal({ isOpen, onClose, editData }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const payload = new FormData();
-
+    
+  
     Object.entries(form).forEach(([key, val]) => {
       if (key !== "images") {
+       
         const value = key === "exchangeEligible" ? val === "Yes" : val;
         payload.append(key, value);
       }
     });
 
+    
     form.images.forEach((img) => payload.append("images", img));
 
     try {
@@ -90,8 +94,16 @@ export default function AddProductModal({ isOpen, onClose, editData }) {
 
           <Input label="Selling Price" type="number" name="sellingPrice" value={form.sellingPrice} onChange={handleChange} />
           <Input label="Brand Name" name="brandName" value={form.brandName} onChange={handleChange} />
+          
+         
+          <Select 
+            label="Product Status" 
+            name="status" 
+            value={form.status} 
+            onChange={handleChange} 
+            options={["PUBLISHED", "UNPUBLISHED"]} 
+          />
 
-          <Select label="Product Status" name="status" value={form.status} onChange={handleChange} options={["PUBLISHED","UNPUBLISHED"]} />
           <Select label="Exchange Eligible" name="exchangeEligible" value={form.exchangeEligible} onChange={handleChange} options={["Yes","No"]} />
 
           <div>
@@ -119,7 +131,7 @@ export default function AddProductModal({ isOpen, onClose, editData }) {
   );
 }
 
-/* Helper Components */
+
 function Input({ label, ...props }) {
   return (
     <div>
