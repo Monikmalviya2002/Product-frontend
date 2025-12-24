@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Bgphoto from "../assets/image.png";
 
-const BASE_URL = "https://product-backend-5.onrender.com";
+const BASE_URL = "https://product-backend-6.onrender.com";
 
 const LoginPage = () => {
   const navigate = useNavigate();

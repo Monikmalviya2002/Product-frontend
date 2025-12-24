@@ -8,7 +8,7 @@ export default function Products() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editProduct, setEditProduct] = useState(null);
 
-  const API_URL = "http://localhost:7777";
+  const API_URL = "https://product-backend-6.onrender.com";
 
   const fetchProducts = async () => {
     try {
