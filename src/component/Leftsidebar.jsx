@@ -1,3 +1,6 @@
+import logo from "../assets/logo.png"
+
+
 export default function Leftsidebar({ activePage, setActivePage }) {
   const itemClass = (page) =>
     `cursor-pointer text-sm px-2 py-1 rounded
@@ -6,10 +9,10 @@ export default function Leftsidebar({ activePage, setActivePage }) {
        : "text-gray-400 hover:text-white"}`;
 
   return (
-    <aside className="w-60 bg-gray-900 text-gray-300 p-5">
-      <h1 className="text-white font-semibold mb-8">
-        Productr 🔑
-      </h1>
+    <aside className="w-60 bg-gray-900 text-gray-300 p-4">
+      <div className="flex">
+           <img  src={logo} alt="logo" className="w-25 h-25 object-contain"/>
+         </div>
 
       <nav className="space-y-2">
         <p
