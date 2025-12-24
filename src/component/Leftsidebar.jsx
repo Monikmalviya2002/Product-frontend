@@ -9,7 +9,7 @@ export default function Leftsidebar({ activePage, setActivePage }) {
        : "text-gray-400 hover:text-white"}`;
 
   return (
-    <aside className="w-60 bg-gray-900 text-gray-300 p-4">
+    <aside className="w-60 bg-gray-800 text-gray-300 p-4">
       <div className="flex">
            <img  src={logo} alt="logo" className="w-25 h-25 object-contain"/>
          </div>
